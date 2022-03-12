@@ -4,7 +4,7 @@
     "codeMakerOutput": "generated",
     "projectId": "69ce7e5b-81f4-4a48-9cb4-526276affe8a",
     "terraformProviders": [
-        "hashicorp/aws@-> 3.67.0"
+        "hashicorp/aws@~> 3.67.0"
     ],
     "terraformModules": [],
     "context": {
