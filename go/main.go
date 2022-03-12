@@ -20,8 +20,8 @@ func main() {
 	stack := NewMyStack(app, "{{ $base }}")
 	cdktf.NewRemoteBackend(stack, &cdktf.RemoteBackendProps{
 		Hostname:     jsii.String("app.terraform.io"),
-		Organization: jsii.String("junan"),
-		Workspaces:   cdktf.NewNamedRemoteWorkspace(jsii.String("Go-Deploy-Namespace")),
+		Organization: jsii.String("nimble"),
+		Workspaces:   cdktf.NewNamedRemoteWorkspace(jsii.String("nimble-growth-37-centauri-web-go")),
 	})
 
 	app.Synth()

@@ -2,8 +2,10 @@
     "language": "go",
     "app": "go run main.go",
     "codeMakerOutput": "generated",
-    "projectId": "11012493-460f-43de-b65f-9e83eb6f8f5a",
-    "terraformProviders": [],
+    "projectId": "69ce7e5b-81f4-4a48-9cb4-526276affe8a",
+    "terraformProviders": [
+        "hashicorp/aws@-> 3.67.0"
+    ],
     "terraformModules": [],
     "context": {
         "excludeStackIdFromLogicalIds": "true",
