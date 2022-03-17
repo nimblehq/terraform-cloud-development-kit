@@ -54,4 +54,6 @@ module "ecs" {
   database_password = var.db_password
   database_host     = module.rds.aws_db_instance_host
   database_port     = module.rds.aws_db_instance_port
+
+  app_secret_key_base = var.app_secret_key_base
 }

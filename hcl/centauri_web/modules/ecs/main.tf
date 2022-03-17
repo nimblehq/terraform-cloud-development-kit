@@ -66,7 +66,7 @@ resource "aws_ecs_task_definition" "main" {
       },
       {
         name  = "SECRET_KEY_BASE"
-        value = "odb/2tIZ9+mBFI8rBMK/OWCRjLuDB+PfKtzv6Td73OfyjDPAjWWLdOmhRozk50rV"
+        value = var.app_secret_key_base
       },
       {
         name  = "PORT"

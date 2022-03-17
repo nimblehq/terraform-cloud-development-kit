@@ -13,3 +13,5 @@ variable "database_username" {}
 variable "database_password" {}
 variable "database_host" {}
 variable "database_port" {}
+
+variable "app_secret_key_base" {}

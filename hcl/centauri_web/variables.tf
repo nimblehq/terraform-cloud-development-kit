@@ -12,3 +12,4 @@ variable "db_password" {}
 
 # ECS
 variable "docker_image" {}
+variable "app_secret_key_base" {}
