@@ -1,6 +1,7 @@
 package main
 
 import (
+	alb "cdk.tf/go/stack/alb"
 	rds "cdk.tf/go/stack/rds"
 
 	"cdk.tf/go/stack/generated/hashicorp/aws"
@@ -18,6 +19,8 @@ func NewMyStack(scope constructs.Construct, id string) cdktf.TerraformStack {
 
 	// Creating a new RDS instance
 	stack = rds.CreateRdsInstance(stack)
+	// Creating a new ELB
+	stack = alb.CreateAlb(stack)
 
 	return stack
 }
