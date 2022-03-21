@@ -9,13 +9,13 @@ import (
 
 func CreateAlb(stack cdktf.TerraformStack) cdktf.TerraformStack {
 	subnetsIds := []string{"subnet-dd3c94bb", "subnet-d505dd9d", "subnet-9fb2d5c6"}
-	terraformelb.NewAlb(stack, jsii.String("aws_lb"), &terraformelb.AlbConfig{
+	newAlb := terraformelb.NewAlb(stack, jsii.String("aws_lb"), &terraformelb.AlbConfig{
 		Name:             jsii.String("cencuri-load-balancer"),
 		LoadBalancerType: jsii.String("application"),
 		Subnets:          jsii.Strings(subnetsIds...),
 	})
 
-	terraformelb.NewAlbTargetGroup(stack, jsii.String("aws_lb_target_group"), &terraformelb.AlbTargetGroupConfig{
+	newAlbTargetGroup := terraformelb.NewAlbTargetGroup(stack, jsii.String("aws_lb_target_group"), &terraformelb.AlbTargetGroupConfig{
 		Name:       jsii.String("cencuri-load-balancer-tg"),
 		Port:       jsii.Number(4000),
 		Protocol:   jsii.String("HTTP"),
@@ -31,6 +31,13 @@ func CreateAlb(stack cdktf.TerraformStack) cdktf.TerraformStack {
 			Protocol:           jsii.String("HTTP"),
 			Matcher:            jsii.String("200"),
 		},
+	})
+
+	terraformelb.NewLbListener(stack, jsii.String("aws_lb_listener"), &terraformelb.LbListenerConfig{
+		Port:            jsii.Number(80),
+		Protocol:        jsii.String("HTTP"),
+		LoadBalancerArn: newAlb.Arn(),
+		DefaultAction:   map[string]string{"Type": "forward", "TargetGroupArn": *newAlbTargetGroup.Arn()},
 	})
 
 	return stack
