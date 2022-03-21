@@ -20,27 +20,26 @@ export class Rds extends Construct {
     super(scope, name)
 
     // Create a password stored in the TF State on the fly
-    const password = new Password(this, `db-password`, {
+    const password = new Password(this, `db_password`, {
       length: 16,
       special: false,
     });
 
     const db = new rds.DbInstance(this, 'db', {
-        identifier: config.identifier,
+      identifier: config.identifier,
 
-        engine: config.engine,
-        engineVersion: config.engineVersion,
+      engine: config.engine,
+      engineVersion: config.engineVersion,
 
-        instanceClass: config.instanceClass,
-        allocatedStorage: config.allocateStorage,
+      instanceClass: config.instanceClass,
+      allocatedStorage: config.allocateStorage,
 
-        name: config.name,
-        username: config.username,
-        password: password.result,
+      name: config.name,
+      username: config.username,
+      password: password.result,
 
-        skipFinalSnapshot: true
-      }
-    )
+      skipFinalSnapshot: true
+    })
 
     new TerraformOutput(this, 'aws_db_instance_host', {
       value: db.address
