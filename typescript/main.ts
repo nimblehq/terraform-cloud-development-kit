@@ -3,7 +3,7 @@ import { App, RemoteBackend, TerraformStack } from 'cdktf';
 import { AwsProvider } from '@cdktf/provider-aws'
 import { RandomProvider } from '@cdktf/provider-random'
 
-import { Rds, Alb } from './construct'
+import { Rds, Alb, Log } from './construct'
 
 class CentauriStack extends TerraformStack {
   constructor(scope: Construct, name: string) {
@@ -37,6 +37,10 @@ class CentauriStack extends TerraformStack {
       name: 'centauri-typescript-alb',
       subnetIds: ['subnet-10621875', 'subnet-1c9cb65a'],
       vpcId: 'vpc-6f9b120a'
+    })
+
+    new Log(this, 'centauri-typescript-log', {
+      name: 'centauri-typescript-log'
     })
   }
 }
