@@ -1,11 +1,11 @@
 import { Construct } from 'constructs'
 import { ecs, iam } from '@cdktf/provider-aws'
-import { DataAwsIamPolicyDocument, IamRole } from '@cdktf/provider-aws/lib/iam'
 import { EcsCluster } from '@cdktf/provider-aws/lib/ecs'
 
 export interface EcsConfig {
   readonly name: string
   readonly image: string
+  readonly logGroup: string
   readonly logRegion: string
   readonly databaseUsername: string
   readonly databasePassword: string
@@ -28,7 +28,7 @@ export class Ecs extends Construct {
   constructor(scope: Construct, name: string, config: EcsConfig) {
     super(scope, name)
 
-    this.taskExecutionIamPolicy = new DataAwsIamPolicyDocument(this, "ecs_task_execution_policy", {
+    this.taskExecutionIamPolicy = new iam.DataAwsIamPolicyDocument(this, "ecs_task_execution_policy", {
       statement: [
         {
           actions: ['sts:AssumeRole'],
@@ -47,6 +47,11 @@ export class Ecs extends Construct {
       name: config.name,
       path: '/',
       assumeRolePolicy: this.taskExecutionIamPolicy.json
+    })
+
+    new iam.IamRolePolicyAttachment(this, 'ecs_task_execution_role_policy_attachment', {
+      role: this.taskExecutionRole.name,
+      policyArn: 'arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy'
     })
 
     this.ecsCluster = new EcsCluster(this, "ecs_cluster", {
@@ -72,6 +77,7 @@ export class Ecs extends Construct {
 
           portMappings: [
             {
+              protocal: 'tcp',
               containerPort: 4000,
               hostPort: 4000,
             },
@@ -80,9 +86,9 @@ export class Ecs extends Construct {
           logConfiguration: {
             logDriver: 'awslogs',
             options: {
-              "awslogs-group": config.name,
+              "awslogs-group": config.logGroup,
               "awslogs-region": config.logRegion,
-              "awslogs-stream-prefix": name,
+              "awslogs-stream-prefix": config.name,
             },
           },
           
