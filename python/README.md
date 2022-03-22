@@ -2,15 +2,25 @@
 
 First, you need to setup the necessary environment variables on Terraform cloud.
 
-Then install `pipenv` as package management.
+Then install `pipenv` as package management, for installing the dependencies:
 
 ```sh
 pipenv install
 ```
 
+Run `synth` command to verify if the source code is ready.
+
+```sh
+cdktf synth
+```
+
+Start deploy the infrastructure
+
 ```sh
 cdktf deploy --auto-approve
 ```
+
+Clean up command if no longer in use.
 
 ```sh
 cdktf destroy --auto-approve

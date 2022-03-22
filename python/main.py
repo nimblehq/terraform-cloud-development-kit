@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 from constructs import Construct
 from cdktf import App, TerraformVariable, TerraformStack, TerraformOutput, RemoteBackend, NamedRemoteWorkspace
-from cdktf_cdktf_provider_aws import AwsProvider, cloudwatch
-from cdktf_cdktf_provider_random import RandomProvider
+from cdktf_cdktf_provider_aws import AwsProvider
 from nimble.ecs import create_ecs_cluster, create_task_definition, create_ecs_service
 from nimble.iam import create_task_role
 from nimble.rds import create_rds, create_connection_str
