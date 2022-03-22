@@ -2,6 +2,7 @@ package main
 
 import (
 	"cdk.tf/go/stack/alb"
+	"cdk.tf/go/stack/ecs"
 	rds "cdk.tf/go/stack/rds"
 
 	"cdk.tf/go/stack/generated/hashicorp/aws"
@@ -18,9 +19,11 @@ func NewMyStack(scope constructs.Construct, id string) cdktf.TerraformStack {
 	})
 
 	// Creating a new RDS instance
-	stack = rds.CreateRdsInstance(stack)
+	stack, db := rds.CreateRdsInstance(stack)
 	// Creating a new ELB
-	stack = alb.CreateAlb(stack)
+	stack, loadBalancer, targetGroup := alb.CreateAlb(stack)
+	// Initializing ECS services
+	stack = ecs.InitEcs(stack, db, loadBalancer, targetGroup)
 
 	return stack
 }

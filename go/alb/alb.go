@@ -7,7 +7,7 @@ import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 )
 
-func CreateAlb(stack cdktf.TerraformStack) cdktf.TerraformStack {
+func CreateAlb(stack cdktf.TerraformStack) (cdktf.TerraformStack, terraformelb.Alb, terraformelb.AlbTargetGroup) {
 	subnetsIds := []string{"subnet-10621875", "subnet-1c9cb65a"}
 
 	newAlb := terraformelb.NewAlb(stack, jsii.String("aws_lb"), &terraformelb.AlbConfig{
@@ -48,5 +48,5 @@ func CreateAlb(stack cdktf.TerraformStack) cdktf.TerraformStack {
 
 	// Add cluster, add task definition, in that task definition add the container, then run the tasks
 
-	return stack
+	return stack, newAlb, newAlbTargetGroup
 }

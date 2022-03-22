@@ -7,8 +7,8 @@ import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 )
 
-func CreateRdsInstance(stack cdktf.TerraformStack) cdktf.TerraformStack {
-	terraformrds.NewDbInstance(stack, jsii.String("aws_db_instance"), &terraformrds.DbInstanceConfig{
+func CreateRdsInstance(stack cdktf.TerraformStack) (cdktf.TerraformStack, terraformrds.DbInstance) {
+	db := terraformrds.NewDbInstance(stack, jsii.String("aws_db_instance"), &terraformrds.DbInstanceConfig{
 		Name:               jsii.String("cencuri_dev_db"),
 		InstanceClass:      jsii.String("db.t3.micro"),
 		AllocatedStorage:   jsii.Number(5),
@@ -19,5 +19,5 @@ func CreateRdsInstance(stack cdktf.TerraformStack) cdktf.TerraformStack {
 		SkipFinalSnapshot:  jsii.Bool(true),
 	})
 
-	return stack
+	return stack, db
 }
