@@ -8,18 +8,19 @@ import (
 )
 
 func CreateAlb(stack cdktf.TerraformStack) cdktf.TerraformStack {
-	subnetsIds := []string{"subnet-dd3c94bb", "subnet-d505dd9d", "subnet-9fb2d5c6"}
-	terraformelb.NewAlb(stack, jsii.String("aws_lb"), &terraformelb.AlbConfig{
+	subnetsIds := []string{"subnet-10621875", "subnet-1c9cb65a"}
+
+	newAlb := terraformelb.NewAlb(stack, jsii.String("aws_lb"), &terraformelb.AlbConfig{
 		Name:             jsii.String("cencuri-load-balancer"),
 		LoadBalancerType: jsii.String("application"),
 		Subnets:          jsii.Strings(subnetsIds...),
 	})
 
-	terraformelb.NewAlbTargetGroup(stack, jsii.String("aws_lb_target_group"), &terraformelb.AlbTargetGroupConfig{
+	newAlbTargetGroup := terraformelb.NewAlbTargetGroup(stack, jsii.String("aws_lb_target_group"), &terraformelb.AlbTargetGroupConfig{
 		Name:       jsii.String("cencuri-load-balancer-tg"),
 		Port:       jsii.Number(4000),
 		Protocol:   jsii.String("HTTP"),
-		VpcId:      jsii.String("vpc-68d2150e"),
+		VpcId:      jsii.String("vpc-6f9b120a"),
 		TargetType: jsii.String("ip"),
 		HealthCheck: &terraformelb.AlbTargetGroupHealthCheck{
 			Interval:           jsii.Number(70),
@@ -33,12 +34,19 @@ func CreateAlb(stack cdktf.TerraformStack) cdktf.TerraformStack {
 		},
 	})
 
-	// terraformelb.NewLbListener(stack, jsii.String("aws_lb_listener"), &terraformelb.LbListenerConfig{
-	// 	Port:            jsii.Number(80),
-	// 	Protocol:        jsii.String("HTTP"),
-	// 	LoadBalancerArn: newAlb.Arn(),
-	// 	DefaultAction:   map[string]string{"Type": "forward", "TargetGroupArn": *newAlbTargetGroup.Arn()},
-	// })
+	terraformelb.NewLbListener(stack, jsii.String("aws_lb_listener"), &terraformelb.LbListenerConfig{
+		Port:            jsii.Number(80),
+		Protocol:        jsii.String("HTTP"),
+		LoadBalancerArn: newAlb.Arn(),
+		DefaultAction: []interface{}{
+			map[string]interface{}{
+				"type":           "forward",
+				"targetGroupArn": *newAlbTargetGroup.Arn(),
+			},
+		},
+	})
+
+	// Add cluster, add task definition, in that task definition add the container, then run the tasks
 
 	return stack
 }

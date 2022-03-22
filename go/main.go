@@ -1,7 +1,7 @@
 package main
 
 import (
-	alb "cdk.tf/go/stack/alb"
+	"cdk.tf/go/stack/alb"
 	rds "cdk.tf/go/stack/rds"
 
 	"cdk.tf/go/stack/generated/hashicorp/aws"
