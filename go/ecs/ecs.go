@@ -5,13 +5,13 @@ import (
 	"fmt"
 
 	"cdk.tf/go/stack/constant"
+
 	terraformcloudwatch "cdk.tf/go/stack/generated/hashicorp/aws/cloudwatch"
 	"cdk.tf/go/stack/generated/hashicorp/aws/ecs"
 	terraformecs "cdk.tf/go/stack/generated/hashicorp/aws/ecs"
 	terraformalb "cdk.tf/go/stack/generated/hashicorp/aws/elb"
-	terraformrds "cdk.tf/go/stack/generated/hashicorp/aws/rds"
-
 	"cdk.tf/go/stack/generated/hashicorp/aws/iam"
+	terraformrds "cdk.tf/go/stack/generated/hashicorp/aws/rds"
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 )
