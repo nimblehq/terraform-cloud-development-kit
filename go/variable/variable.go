@@ -59,11 +59,11 @@ func VpcId(stack cdktf.TerraformStack) *string {
 	return vpcId.StringValue()
 }
 
-func GetSubnetIds(stack cdktf.TerraformStack) *string {
+func GetSubnetIds(stack cdktf.TerraformStack) *[]*string {
 	subnetIds := cdktf.NewTerraformVariable(stack, jsii.String("SUBNET_IDS"), &cdktf.TerraformVariableConfig{
 		Type:    jsii.String("list(string)"),
 		Default: []*string{jsii.String("subnet-10621875"), jsii.String("subnet-1c9cb65a")},
 	})
 
-	return subnetIds.StringValue()
+	return subnetIds.ListValue()
 }

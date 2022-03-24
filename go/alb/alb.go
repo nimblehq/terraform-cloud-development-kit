@@ -2,6 +2,7 @@ package alb
 
 import (
 	constant "cdk.tf/go/stack/constant"
+	"cdk.tf/go/stack/variable"
 
 	terraformelb "cdk.tf/go/stack/generated/hashicorp/aws/elb"
 	"github.com/aws/jsii-runtime-go"
@@ -9,12 +10,12 @@ import (
 )
 
 func CreateAlb(stack cdktf.TerraformStack) (cdktf.TerraformStack, terraformelb.Alb, terraformelb.AlbTargetGroup) {
-	subnetsIds := []string{"subnet-10621875", "subnet-1c9cb65a"}
+	subnetsIds := variable.GetSubnetIds(stack)
 
 	newAlb := terraformelb.NewAlb(stack, jsii.String("aws_lb"), &terraformelb.AlbConfig{
 		Name:             jsii.String(constant.Name),
 		LoadBalancerType: jsii.String("application"),
-		Subnets:          jsii.Strings(subnetsIds...),
+		Subnets:          subnetsIds,
 	})
 
 	newAlbTargetGroup := terraformelb.NewAlbTargetGroup(stack, jsii.String("aws_lb_target_group"), &terraformelb.AlbTargetGroupConfig{
