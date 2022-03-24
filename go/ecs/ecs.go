@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"cdk.tf/go/stack/constant"
+	"cdk.tf/go/stack/variable"
 
 	terraformcloudwatch "cdk.tf/go/stack/generated/hashicorp/aws/cloudwatch"
 	"cdk.tf/go/stack/generated/hashicorp/aws/ecs"
@@ -64,7 +65,7 @@ func InitEcs(stack cdktf.TerraformStack, db terraformrds.DbInstance, loadBalance
 	definitions := []interface{}{
 		map[string]interface{}{
 			"name":      "Go-container",
-			"image":     "301618631622.dkr.ecr.ap-southeast-1.amazonaws.com/centauri:0.4.4-without-basic-auth",
+			"image":     variable.GetDockerImage(stack),
 			"essential": true,
 			"portMappings": []interface{}{
 				map[string]interface{}{
@@ -92,7 +93,7 @@ func InitEcs(stack cdktf.TerraformStack, db terraformrds.DbInstance, loadBalance
 				},
 				map[string]interface{}{
 					"name":  "SECRET_KEY_BASE",
-					"value": "eD7Se7buNmNTWKhQrm2BFP3zlasjrQtg85ORlQ0PKqxtWq9FQetj8vOp1GIOZnyj",
+					"value": variable.GetSecretKeyBase(stack),
 				},
 				map[string]interface{}{
 					"name":  "PORT",
