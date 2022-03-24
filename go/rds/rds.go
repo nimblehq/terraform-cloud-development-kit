@@ -13,13 +13,23 @@ func CreateRdsInstance(stack cdktf.TerraformStack) (cdktf.TerraformStack, terraf
 		Sensitive: jsii.Bool(true),
 	})
 
+	password := cdktf.NewTerraformVariable(stack, jsii.String("DB_PASSWORD"), &cdktf.TerraformVariableConfig{
+		Type:      jsii.String("string"),
+		Sensitive: jsii.Bool(true),
+	})
+
+	dbName := cdktf.NewTerraformVariable(stack, jsii.String("DB_NAME"), &cdktf.TerraformVariableConfig{
+		Type:      jsii.String("string"),
+		Sensitive: jsii.Bool(true),
+	})
+
 	db := terraformrds.NewDbInstance(stack, jsii.String("aws_db_instance"), &terraformrds.DbInstanceConfig{
-		Name:               jsii.String("cencuri_dev_db"),
+		Name:               jsii.String(*dbName.StringValue()),
 		InstanceClass:      jsii.String("db.t3.micro"),
 		AllocatedStorage:   jsii.Number(5),
 		Engine:             jsii.String("postgres"),
 		Username:           jsii.String(*username.StringValue()),
-		Password:           jsii.String("junan123x"),
+		Password:           jsii.String(*password.StringValue()),
 		PubliclyAccessible: jsii.Bool(true),
 		SkipFinalSnapshot:  jsii.Bool(true),
 	})
