@@ -1,8 +1,6 @@
 package rds
 
 import (
-	"fmt"
-
 	terraformrds "cdk.tf/go/stack/generated/hashicorp/aws/rds"
 
 	"github.com/aws/jsii-runtime-go"
@@ -11,20 +9,9 @@ import (
 
 func CreateRdsInstance(stack cdktf.TerraformStack) (cdktf.TerraformStack, terraformrds.DbInstance) {
 	username := cdktf.NewTerraformVariable(stack, jsii.String("DB_USERNAME"), &cdktf.TerraformVariableConfig{
-		Default: jsii.String("somessname"),
-		Type:    jsii.String("string"),
+		Type:      jsii.String("string"),
+		Sensitive: jsii.Bool(true),
 	})
-
-	test := cdktf.NewTerraformVariable(stack, jsii.String("TEST"), &cdktf.TerraformVariableConfig{
-		Default: jsii.String("swss"),
-		Type:    jsii.String("string"),
-	})
-
-	fmt.Println("***************")
-	fmt.Printf("Result is: %+v", username)
-	fmt.Printf("Result is: %s", *username.StringValue())
-	fmt.Printf("\nResult is: %s", *test.StringValue())
-	fmt.Println("\n***************")
 
 	db := terraformrds.NewDbInstance(stack, jsii.String("aws_db_instance"), &terraformrds.DbInstanceConfig{
 		Name:               jsii.String("cencuri_dev_db"),
