@@ -2,6 +2,7 @@ package main
 
 import (
 	"cdk.tf/go/stack/alb"
+	constant "cdk.tf/go/stack/constant"
 	"cdk.tf/go/stack/ecs"
 	rds "cdk.tf/go/stack/rds"
 
@@ -32,9 +33,9 @@ func main() {
 	app := cdktf.NewApp(nil)
 	stack := NewMyStack(app, "aws_instance")
 	cdktf.NewRemoteBackend(stack, &cdktf.RemoteBackendProps{
-		Hostname:     jsii.String("app.terraform.io"),
-		Organization: jsii.String("nimble"),
-		Workspaces:   cdktf.NewNamedRemoteWorkspace(jsii.String("nimble-growth-37-centauri-web-go")),
+		Hostname:     jsii.String(constant.TerraformUrl),
+		Organization: jsii.String(constant.TerraformOrganization),
+		Workspaces:   cdktf.NewNamedRemoteWorkspace(jsii.String(constant.TerraformWorkspace)),
 	})
 
 	app.Synth()

@@ -1,6 +1,7 @@
 package alb
 
 import (
+	constant "cdk.tf/go/stack/constant"
 	terraformelb "cdk.tf/go/stack/generated/hashicorp/aws/elb"
 
 	"github.com/aws/jsii-runtime-go"
@@ -11,13 +12,13 @@ func CreateAlb(stack cdktf.TerraformStack) (cdktf.TerraformStack, terraformelb.A
 	subnetsIds := []string{"subnet-10621875", "subnet-1c9cb65a"}
 
 	newAlb := terraformelb.NewAlb(stack, jsii.String("aws_lb"), &terraformelb.AlbConfig{
-		Name:             jsii.String("cencuri-load-balancer"),
+		Name:             jsii.String(constant.Name),
 		LoadBalancerType: jsii.String("application"),
 		Subnets:          jsii.Strings(subnetsIds...),
 	})
 
 	newAlbTargetGroup := terraformelb.NewAlbTargetGroup(stack, jsii.String("aws_lb_target_group"), &terraformelb.AlbTargetGroupConfig{
-		Name:       jsii.String("cencuri-load-balancer-tg"),
+		Name:       jsii.String(constant.Name),
 		Port:       jsii.Number(4000),
 		Protocol:   jsii.String("HTTP"),
 		VpcId:      jsii.String("vpc-6f9b120a"),

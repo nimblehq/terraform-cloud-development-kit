@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"cdk.tf/go/stack/constant"
 	terraformcloudwatch "cdk.tf/go/stack/generated/hashicorp/aws/cloudwatch"
 	"cdk.tf/go/stack/generated/hashicorp/aws/ecs"
 	terraformecs "cdk.tf/go/stack/generated/hashicorp/aws/ecs"
@@ -37,7 +38,7 @@ func InitEcs(stack cdktf.TerraformStack, db terraformrds.DbInstance, loadBalance
 
 	// New task execution Role
 	taskExecutionRole := iam.NewIamRole(stack, jsii.String("ecs_task_execution_role"), &iam.IamRoleConfig{
-		Name:             jsii.String("go-task-execution-role"),
+		Name:             jsii.String(constant.Name),
 		Path:             jsii.String("/"),
 		AssumeRolePolicy: taskExecutionPolicy.Json(),
 	})
@@ -50,11 +51,11 @@ func InitEcs(stack cdktf.TerraformStack, db terraformrds.DbInstance, loadBalance
 
 	// New ECS cluster
 	cluster := terraformecs.NewEcsCluster(stack, jsii.String("aws_ecs_cluster"), &terraformecs.EcsClusterConfig{
-		Name: jsii.String("go-ecs-cluster"),
+		Name: jsii.String(constant.Name),
 	})
 
 	cloudWatchLogGroup := terraformcloudwatch.NewCloudwatchLogGroup(stack, jsii.String("aws_cloudwatch_log_group"), &terraformcloudwatch.CloudwatchLogGroupConfig{
-		Name:            jsii.String("go-cloud-watch-log-group"),
+		Name:            jsii.String(constant.Name),
 		RetentionInDays: jsii.Number(14),
 	})
 
