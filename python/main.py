@@ -55,8 +55,8 @@ stack = MyStack(app, "cdktf")
 
 RemoteBackend(stack,
   hostname='app.terraform.io',
-  organization='byhbt',
-  workspaces=NamedRemoteWorkspace('python')
+  organization='nimble',
+  workspaces=NamedRemoteWorkspace('nimble-growth-37-centauri-python')
 )
 
 app.synth()
