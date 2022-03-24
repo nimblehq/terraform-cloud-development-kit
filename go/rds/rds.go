@@ -1,6 +1,8 @@
 package rds
 
 import (
+	"os"
+
 	terraformrds "cdk.tf/go/stack/generated/hashicorp/aws/rds"
 
 	"github.com/aws/jsii-runtime-go"
@@ -13,7 +15,7 @@ func CreateRdsInstance(stack cdktf.TerraformStack) (cdktf.TerraformStack, terraf
 		InstanceClass:      jsii.String("db.t3.micro"),
 		AllocatedStorage:   jsii.Number(5),
 		Engine:             jsii.String("postgres"),
-		Username:           jsii.String("junan"),
+		Username:           jsii.String(os.Getenv("DB_USERNAME")),
 		Password:           jsii.String("junan123x"),
 		PubliclyAccessible: jsii.Bool(true),
 		SkipFinalSnapshot:  jsii.Bool(true),
