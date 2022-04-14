@@ -1,12 +1,38 @@
-# Git Repository Template
+# Terraform Cloud Development Kit demonstration 
 
-Project repository template to set up all public projects at [Nimble](https://nimblehq.co/)
+The demonstration of [Terraform Cloud Development Kit](https://www.terraform.io/cdktf). 
+
+Contain the implementation in four languages
+
+- HCL
+- TypeScript
+- Go
+- Python
 
 ## Usage
 
-Clone the repository
+- Clone the repository
 
-`git clone git@github.com:nimblehq/git-template.git`
+  ```bash
+  git clone git@github.com:nimblehq/git-template.git
+  ```
+
+- Check the subfolder's README in order to orchestrate the infrastructure.
+
+  ```bash
+  .
+  ├── go
+  │   ├── README.md
+  ├── hcl
+  │   ├── aws_ecr
+  │   │   ├── README.md
+  │   └── centauri_web
+  │       ├── README.md
+  ├── python
+  │   ├── README.md
+  └── typescript
+  │   ├── README.md
+  ```
 
 ## License
 
