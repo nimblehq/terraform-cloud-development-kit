@@ -2,7 +2,7 @@
 
 The demonstration of [Terraform Cloud Development Kit](https://www.terraform.io/cdktf). 
 
-Contain the implementation on four languages
+Contain the implementation in four languages
 
 - HCL
 - TypeScript
